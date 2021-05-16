@@ -16,6 +16,11 @@ const userSchema = new Schema({
         trim: true,
         unique: true
     },
+    type: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
     password: {
         type: 'String',
         required: true,
@@ -26,8 +31,10 @@ const userSchema = new Schema({
 userSchema.pre('save', (next) => {
   const user = this;
   if(!user.isModified || !user.isNew) { // don't rehash if it's an old user
+    console.log("old");
     next();
   } else {
+    console.log("new");
     bcrypt.hash(user.password, stage.saltingRounds, (err, hash) => {
       if (err) {
         console.log('Error hashing password for user', user.name);

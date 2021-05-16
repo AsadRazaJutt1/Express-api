@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const User = require('../models/users');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { userType } = require('../constants');
 const connUri = process.env.MONGO_LOCAL_CONN_URL;
 module.exports = {
     add: (req, res) => {
@@ -9,8 +10,8 @@ module.exports = {
             let result = {};
             let status = 201;
             if (!err) {
-                const { name, password } = req.body;
-                const user = new User({ name, password }); // document = instance of a model
+                const { name, type, password } = req.body;
+                const user = new User({ name, type, password }); // document = instance of a model
                 // TODO: We can hash the password here before we insert instead of in the model
                 user.save((err, user) => {
                     if (!err) {
@@ -43,11 +44,12 @@ module.exports = {
                     if (!err && user) {
                         // We could compare passwords in our model instead of below
                         bcrypt.compare(String(password), user.password).then(match => {
+                            console.log(match);
                             if (match) {
                                 status = 200;
                                 // Create a token
                                 const payload = { user: user.name };
-                                const options = { expiresIn: '2d', issuer: 'Killer' };
+                                const options = { expiresIn: '2d', issuer: 'http://Killer.io' };
                                 const secret = process.env.JWT_SECRET;
                                 const token = jwt.sign(payload, secret, options);
 
@@ -89,11 +91,10 @@ module.exports = {
             let status = 200;
             if (!err) {
                 const payload = req.decoded;
-                console.log(payload);
                 // TODO: Log the payload here to verify that it's the same payload
                 //  we used when we created the token
                 // console.log('PAYLOAD', payload);
-                if (payload && payload.user === 'admin') {
+                if (payload && payload.user === 'asad') {
                     User.find({}, (err, users) => {
                         if (!err) {
                             result.status = status;

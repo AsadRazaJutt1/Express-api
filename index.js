@@ -19,7 +19,7 @@ if (environment !== 'production') {
     app.use(logger('dev'));
 }
 
-app.use('/api/v1', routes(router));
+app.use('/api', routes(router));
 
 app.listen(`${stage.port}`, () => {
     console.log(`Server now listening at localhost:${stage.port}`);
