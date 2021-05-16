@@ -17,11 +17,11 @@ module.exports = {
 
                     // Let's pass back the decoded token to the request object
                     req.decoded = result;
-
-                    if (req.decoded && userTypes.includes(req.decoded.type)) {
+                    type = req.decoded.type;
+                    if (req.decoded && (userTypes.includes(type) === true)) {
                         next(); // role is allowed, so continue on the next middleware
                     } else {
-                        response.status(403).json({ message: "Forbidden" }); // user is forbidden
+                        res.status(403).send({ message: "Forbidden" }); // user is forbidden
                     }
                 } catch (err) {
                     // Throw an error just in case anything goes wrong with verification

@@ -44,11 +44,10 @@ module.exports = {
                     if (!err && user) {
                         // We could compare passwords in our model instead of below
                         bcrypt.compare(String(password), user.password).then(match => {
-                            console.log(match);
                             if (match) {
                                 status = 200;
                                 // Create a token
-                                const payload = { user: user.name };
+                                const payload = { user: user.name, type: user.type };
                                 const options = { expiresIn: '2d', issuer: 'http://Killer.io' };
                                 const secret = process.env.JWT_SECRET;
                                 const token = jwt.sign(payload, secret, options);
