@@ -6,5 +6,5 @@ module.exports = (router) => {
         .get(validateToken, controller.getAll); // This route is now protected
 
     router.route('/login')
-        .post(controller.login);
+        .post(controller.login); 
 };
