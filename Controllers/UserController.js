@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const User = require('../models/users');
+const User = require('../Models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { userType } = require('../constants');
+const { userType } = require('../Constants');
 const connUri = process.env.MONGO_LOCAL_CONN_URL;
 module.exports = {
     add: (req, res) => {
