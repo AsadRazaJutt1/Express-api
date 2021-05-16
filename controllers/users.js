@@ -47,7 +47,7 @@ module.exports = {
                                 status = 200;
                                 // Create a token
                                 const payload = { user: user.name };
-                                const options = { expiresIn: '2d', issuer: 'https://scotch.io' };
+                                const options = { expiresIn: '2d', issuer: 'Killer' };
                                 const secret = process.env.JWT_SECRET;
                                 const token = jwt.sign(payload, secret, options);
 
@@ -84,11 +84,12 @@ module.exports = {
     },
 
     getAll: (req, res) => {
-        mongoose.connect(connUri, { useNewUrlParser: true }, (err) => {
+        mongoose.connect(connUri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
             let result = {};
             let status = 200;
             if (!err) {
                 const payload = req.decoded;
+                console.log(payload);
                 // TODO: Log the payload here to verify that it's the same payload
                 //  we used when we created the token
                 // console.log('PAYLOAD', payload);
