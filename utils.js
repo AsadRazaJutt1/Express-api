@@ -21,7 +21,12 @@ module.exports = {
                     if (req.decoded && (userTypes.includes(type) === true)) {
                         next(); // role is allowed, so continue on the next middleware
                     } else {
-                        res.status(403).send({ message: "Forbidden" }); // user is forbidden
+                        result = {
+                            error: "Forbidden",
+                            message: "You don't have permission to access",
+                            status: 403
+                        };
+                        res.status(403).send(result); // user is forbidden
                     }
                 } catch (err) {
                     // Throw an error just in case anything goes wrong with verification
