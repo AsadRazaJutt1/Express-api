@@ -1,7 +1,7 @@
 run these command in you termnal
 
 yarn add express body-parser bcrypt dotenv jsonwebtoken mongoose  --save
-yarn add morgan nodemon cross-env  --save-dev
+yarn add morgan nodemon cross-env  --save-dev 
 
 set ypu .ENV file and add lines
 
